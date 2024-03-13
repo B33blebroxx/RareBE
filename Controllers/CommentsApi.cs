@@ -9,7 +9,7 @@ namespace RareBE.Controllers
         public static void Map(WebApplication app)
         {
             //create a comment
-            app.MapPost("api/comments", (RareBEDbContext db, Comment newComment) =>
+            app.MapPost("/comments", (RareBEDbContext db, Comment newComment) =>
             {
                 try
                 {
@@ -24,7 +24,7 @@ namespace RareBE.Controllers
             });
 
             //delete a single comment
-            app.MapDelete("api/comments/{commentId}", (RareBEDbContext db, int commentId) =>
+            app.MapDelete("/comments/{commentId}", (RareBEDbContext db, int commentId) =>
             {
                 var commentToDelete = db.Comments.FirstOrDefault(c => c.Id == commentId);
                 if (commentToDelete == null)
@@ -37,7 +37,7 @@ namespace RareBE.Controllers
             });
 
             //update Comment
-            app.MapPut("api/comments/{commentId}", (RareBEDbContext db, int commentId, CommentDto comment) =>
+            app.MapPut("/comments/{commentId}", (RareBEDbContext db, int commentId, CommentDto comment) =>
 {
                 Comment commentToUpdate = db.Comments.SingleOrDefault(c => c.Id == commentId);
                 if (commentToUpdate == null)
@@ -52,7 +52,7 @@ namespace RareBE.Controllers
             });
 
             //get post's comments
-            app.MapGet("api/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
+            app.MapGet("/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
             {
                 var postComments = db.Posts
                 .Include(p => p.Comments)
