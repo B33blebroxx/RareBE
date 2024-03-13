@@ -42,7 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 SubscriptionsApi.Map(app);
+ReactionsApi.Map(app);
 
 app.Run();
 
