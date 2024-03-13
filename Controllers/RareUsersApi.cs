@@ -39,7 +39,7 @@ namespace RareBE.Controllers
             //Edit User Profile
             app.MapPut("/users/{id}", (RareBEDbContext db, int id, RareUser user) =>
             {
-                var userBeingUpdated = db.RareUsers.SingleOrDefault(u => u.Id == id);
+                var userBeingUpdated = db.RareUsers.Find(id);
                 
                 if (userBeingUpdated == null)
                 {
@@ -54,6 +54,31 @@ namespace RareBE.Controllers
 
                 db.SaveChanges();
                 return Results.Ok("Rare User has been updated!");
+            });
+
+            //View Single Profile Details
+            app.MapGet("/users/{id}", (RareBEDbContext db, int id) =>
+            {
+                var user = db.RareUsers.Find(id);
+
+            if (user == null)
+                {
+                    return Results.NotFound("No user found with that ID");
+                }
+
+                string formattedCreationDate = user.CreatedOn.ToString("MM/dd/yyyy");
+
+                var userDetails = new
+                {
+                    FullName = $"{user.FirstName} {user.LastName}",
+                    user.ProfileImageUrl,
+                    user.Bio,
+                    user.Email,
+                    CreationDate = formattedCreationDate,
+                    Active = user.Active
+                };
+
+                return Results.Ok(userDetails);
             });
         }
     }
