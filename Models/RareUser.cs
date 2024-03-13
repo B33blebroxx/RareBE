@@ -10,7 +10,6 @@
         public string Email { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool Active { get; set; }
-        public bool IsStaff { get; set; }
-        public string Uid { get; set; }
+        public string? Uid { get; set; }
     }
 }
