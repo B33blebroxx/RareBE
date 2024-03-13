@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-RareUsers.Map(app);
+RareUsersApi.Map(app);
 
 app.Run();
 

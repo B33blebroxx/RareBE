@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RareBE.Controllers
 {
-    public class RareUsers
+    public class RareUsersApi
     {
         public static void Map(WebApplication app)
         {
@@ -34,6 +34,26 @@ namespace RareBE.Controllers
                 {
                     return Results.BadRequest("Couldn't create new user, please try again!");
                 }
+            });
+
+            //Edit User Profile
+            app.MapPut("/users/{id}", (RareBEDbContext db, int id, RareUser user) =>
+            {
+                var userBeingUpdated = db.RareUsers.SingleOrDefault(u => u.Id == id);
+                
+                if (userBeingUpdated == null)
+                {
+                    return Results.NotFound("No user found with that ID");
+                }
+
+                userBeingUpdated.FirstName = user.FirstName;
+                userBeingUpdated.LastName = user.LastName;
+                userBeingUpdated.Bio = user.Bio;
+                userBeingUpdated.ProfileImageUrl = user.ProfileImageUrl;
+                userBeingUpdated.Email = user.Email;
+
+                db.SaveChanges();
+                return Results.Ok("Rare User has been updated!");
             });
         }
     }
