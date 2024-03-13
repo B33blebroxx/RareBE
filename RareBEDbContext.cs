@@ -32,7 +32,7 @@ public class RareBEDbContext : DbContext
             Id = 1,
             RareUserId = 3,
             Title = "10 Hidden Features of iOS That Will Boost Your Productivity",
-            PublicationDate = new DateTime(2024, 2, 4).AddDays(-20),
+            PublicationDate = new DateTime(2024, 2, 4),
             ImageUrl = "https://miro.medium.com/v2/resize:fit:2912/1*Cv59R-kinaZ9JZwxb0w4hw.png",
             Content = "Dive deep into the less known features of iOS that can enhance your daily productivity. From back-tap shortcuts to the magic of custom widgets, learn how to make the most of your iPhone.",
             Approved = true
@@ -41,7 +41,7 @@ public class RareBEDbContext : DbContext
             Id = 2,
             RareUserId = 1,
             Title = "Why the M1 Chip Redefines Computing",
-            PublicationDate = new DateTime(2024, 3, 1).AddDays(-15),
+            PublicationDate = new DateTime(2024, 3, 1),
             ImageUrl = "https://www.shutterstock.com/image-photo/viersen-germany-may-8-2021-600nw-1974447050.jpg",
             Content = "Explore how Apple's M1 chip is revolutionizing the computing world, offering unmatched performance and efficiency. See how it compares to traditional processors in real-world tasks.",
             Approved = true
@@ -50,7 +50,7 @@ public class RareBEDbContext : DbContext
             Id = 3,
             RareUserId = 2,
             Title = "The Evolution of Apple Watch: From Luxury to Necessity",
-            PublicationDate = new DateTime(2024, 5, 5).AddDays(-10),
+            PublicationDate = new DateTime(2024, 5, 5),
             ImageUrl = "https://media.istockphoto.com/id/1314052259/photo/woman-using-smart-watch-and-smart-phone-apple-watch.jpg?s=612x612&w=0&k=20&c=5JcW_Xmw0-RkOD-D7MNHrzRN2g7_m8WM8ZbV2rGoNAc=",
             Content = "Trace the journey of the Apple Watch and how it's become an indispensable tool for health, communication, and productivity. Discover the latest features that make it more than just a timepiece.",
             Approved = true
