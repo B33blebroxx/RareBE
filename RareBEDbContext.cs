@@ -30,7 +30,7 @@ public class RareBEDbContext : DbContext
      {
         new Post {
             Id = 1,
-            Uid = null,
+            RareUserId = null,
             Title = "10 Hidden Features of iOS That Will Boost Your Productivity",
             PublicationDate = DateTime.Now.AddDays(-20),
             ImageUrl = "https://miro.medium.com/v2/resize:fit:2912/1*Cv59R-kinaZ9JZwxb0w4hw.png",
@@ -39,7 +39,7 @@ public class RareBEDbContext : DbContext
         },
         new Post {
             Id = 2,
-            Uid = null,
+            RareUserId = null,
             Title = "Why the M1 Chip Redefines Computing",
             PublicationDate = DateTime.Now.AddDays(-15),
             ImageUrl = "https://www.shutterstock.com/image-photo/viersen-germany-may-8-2021-600nw-1974447050.jpg",
@@ -48,7 +48,7 @@ public class RareBEDbContext : DbContext
         },
         new Post {
             Id = 3,
-            Uid = null,
+            RareUserId = null,
             Title = "The Evolution of Apple Watch: From Luxury to Necessity",
             PublicationDate = DateTime.Now.AddDays(-10),
             ImageUrl = "https://media.istockphoto.com/id/1314052259/photo/woman-using-smart-watch-and-smart-phone-apple-watch.jpg?s=612x612&w=0&k=20&c=5JcW_Xmw0-RkOD-D7MNHrzRN2g7_m8WM8ZbV2rGoNAc=",
