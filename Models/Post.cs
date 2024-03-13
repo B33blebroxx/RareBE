@@ -3,7 +3,7 @@
 public class Post
 {
     public int Id { get; set; }
-    public int? Uid { get; set; }
+    public int? RareUserId { get; set; }
     public string Title { get; set; }
     public DateTime PublicationDate { get; set; }
     public ICollection<Comment> Comments { get; set; }

@@ -53,7 +53,7 @@ namespace RareBE.Controllers
 
 
             //get post's comments
-            app.MapGet("api/posts/{postId}/comments", (RareBEDbContext db, int postId) =
+            app.MapGet("api/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
             {
                 var postComments = db.Posts
                 .Include(p => p.Comments)
