@@ -1,4 +1,5 @@
 using RareBE.Models;
+using RareBE.Controllers;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -43,8 +44,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-SubscriptionsApi.Map(app);
-ReactionsApi.Map(app);
+PostsApi.Map(app);
+RareUsersApi.Map(app);
+SearchApi.Map(app);
 
 app.Run();
 

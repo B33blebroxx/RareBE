@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RareBE.Migrations
 {
     [DbContext(typeof(RareBEDbContext))]
-    partial class RareBEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313011640_DataFix3")]
+    partial class DataFix3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Dive deep into the less known features of iOS that can enhance your daily productivity. From back-tap shortcuts to the magic of custom widgets, learn how to make the most of your iPhone.",
                             ImageUrl = "https://miro.medium.com/v2/resize:fit:2912/1*Cv59R-kinaZ9JZwxb0w4hw.png",
-                            PublicationDate = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublicationDate = new DateTime(2024, 2, 21, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4925),
                             RareUserId = 3,
                             Title = "10 Hidden Features of iOS That Will Boost Your Productivity"
                         },
@@ -71,7 +73,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Explore how Apple's M1 chip is revolutionizing the computing world, offering unmatched performance and efficiency. See how it compares to traditional processors in real-world tasks.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/viersen-germany-may-8-2021-600nw-1974447050.jpg",
-                            PublicationDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublicationDate = new DateTime(2024, 2, 26, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4928),
                             RareUserId = 1,
                             Title = "Why the M1 Chip Redefines Computing"
                         },
@@ -81,7 +83,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Trace the journey of the Apple Watch and how it's become an indispensable tool for health, communication, and productivity. Discover the latest features that make it more than just a timepiece.",
                             ImageUrl = "https://media.istockphoto.com/id/1314052259/photo/woman-using-smart-watch-and-smart-phone-apple-watch.jpg?s=612x612&w=0&k=20&c=5JcW_Xmw0-RkOD-D7MNHrzRN2g7_m8WM8ZbV2rGoNAc=",
-                            PublicationDate = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PublicationDate = new DateTime(2024, 3, 2, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4930),
                             RareUserId = 2,
                             Title = "The Evolution of Apple Watch: From Luxury to Necessity"
                         });
@@ -125,8 +127,6 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
-
                     b.ToTable("Comments");
 
                     b.HasData(
@@ -135,7 +135,7 @@ namespace RareBE.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Content = "Bright, fragrant, and sweet",
-                            CreatedOn = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 3, 12, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4823),
                             PostId = 1
                         },
                         new
@@ -143,7 +143,7 @@ namespace RareBE.Migrations
                             Id = 2,
                             AuthorId = 2,
                             Content = "Beautifully written",
-                            CreatedOn = new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 3, 12, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4857),
                             PostId = 3
                         },
                         new
@@ -151,8 +151,16 @@ namespace RareBE.Migrations
                             Id = 3,
                             AuthorId = 3,
                             Content = "Very exciting",
-                            CreatedOn = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 3, 12, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4859),
                             PostId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            Content = "So glad I read this!",
+                            CreatedOn = new DateTime(2024, 3, 12, 20, 16, 40, 77, DateTimeKind.Local).AddTicks(4860),
+                            PostId = 4
                         });
                 });
 
@@ -187,6 +195,7 @@ namespace RareBE.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Uid")
@@ -334,20 +343,6 @@ namespace RareBE.Migrations
                         .HasForeignKey("ReactionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RareBE.Models.Comment", b =>
-                {
-                    b.HasOne("Post", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Post", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

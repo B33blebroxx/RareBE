@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RareBE.Migrations
 {
     [DbContext(typeof(RareBEDbContext))]
-    partial class RareBEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313014330_ThirdCreate")]
+    partial class ThirdCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,12 +45,12 @@ namespace RareBE.Migrations
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("RareUserId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("Uid")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -61,8 +63,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Dive deep into the less known features of iOS that can enhance your daily productivity. From back-tap shortcuts to the magic of custom widgets, learn how to make the most of your iPhone.",
                             ImageUrl = "https://miro.medium.com/v2/resize:fit:2912/1*Cv59R-kinaZ9JZwxb0w4hw.png",
-                            PublicationDate = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RareUserId = 3,
+                            PublicationDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "10 Hidden Features of iOS That Will Boost Your Productivity"
                         },
                         new
@@ -71,8 +72,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Explore how Apple's M1 chip is revolutionizing the computing world, offering unmatched performance and efficiency. See how it compares to traditional processors in real-world tasks.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/viersen-germany-may-8-2021-600nw-1974447050.jpg",
-                            PublicationDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RareUserId = 1,
+                            PublicationDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Why the M1 Chip Redefines Computing"
                         },
                         new
@@ -81,8 +81,7 @@ namespace RareBE.Migrations
                             Approved = true,
                             Content = "Trace the journey of the Apple Watch and how it's become an indispensable tool for health, communication, and productivity. Discover the latest features that make it more than just a timepiece.",
                             ImageUrl = "https://media.istockphoto.com/id/1314052259/photo/woman-using-smart-watch-and-smart-phone-apple-watch.jpg?s=612x612&w=0&k=20&c=5JcW_Xmw0-RkOD-D7MNHrzRN2g7_m8WM8ZbV2rGoNAc=",
-                            PublicationDate = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RareUserId = 2,
+                            PublicationDate = new DateTime(2024, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Evolution of Apple Watch: From Luxury to Necessity"
                         });
                 });
@@ -153,6 +152,14 @@ namespace RareBE.Migrations
                             Content = "Very exciting",
                             CreatedOn = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PostId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            Content = "So glad I read this!",
+                            CreatedOn = new DateTime(2024, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PostId = 4
                         });
                 });
 
@@ -187,6 +194,7 @@ namespace RareBE.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Uid")
@@ -251,26 +259,6 @@ namespace RareBE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reactions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Image = "https://p1.hiclipart.com/preview/516/463/730/facebook-reactions-1-png-clipart-thumbnail.jpg",
-                            Label = "Like"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Image = "https://p7.hiclipart.com/preview/569/541/154/social-media-facebook-love-emoji-facebook-reaction.jpg",
-                            Label = "Love"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Image = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d5f41aae-b015-401d-90db-b4fc1ca02719/dbposff-ea25cf15-0729-409e-b815-2d22adfd9551.gif/v1/fill/w_500,h_500/facebook_haha_reaction_by_metallicsedan_dbposff-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTAwIiwicGF0aCI6IlwvZlwvZDVmNDFhYWUtYjAxNS00MDFkLTkwZGItYjRmYzFjYTAyNzE5XC9kYnBvc2ZmLWVhMjVjZjE1LTA3MjktNDA5ZS1iODE1LTJkMjJhZGZkOTU1MS5naWYiLCJ3aWR0aCI6Ijw9NTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.AGN85B-bQ8Lbuuh09A9qzSPyreHvdgV03nh-QNQcRfk",
-                            Label = "Laugh"
-                        });
                 });
 
             modelBuilder.Entity("RareBE.Models.Subscription", b =>
