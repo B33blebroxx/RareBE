@@ -44,7 +44,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-RareUsers.Map(app);
 PostsApi.Map(app);
 RareUsersApi.Map(app);
 SearchApi.Map(app);
