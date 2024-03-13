@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RareBE.Migrations
 {
     [DbContext(typeof(RareBEDbContext))]
-    partial class RareBEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313025341_SeventhCreate")]
+    partial class SeventhCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +155,14 @@ namespace RareBE.Migrations
                             Content = "Very exciting",
                             CreatedOn = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PostId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            Content = "So glad I read this!",
+                            CreatedOn = new DateTime(2024, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PostId = 4
                         });
                 });
 

@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using RareBE.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
