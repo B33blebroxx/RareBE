@@ -37,10 +37,12 @@ namespace RareBE.Controllers
                 db.SaveChanges();
                 return Results.Ok("Success!"); 
             });
-
+            
+            // GET Subscriber Count
             app.MapGet("/user/{id}/subscribers", (RareBEDbContext db, int id) =>
             {
-                
+                var subs = db.Subscriptions.Where(s => s.AuthorId == id).Count();
+                return Results.Ok(subs);
             });
         }
     }
