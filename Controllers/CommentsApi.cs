@@ -51,6 +51,14 @@ namespace RareBE.Controllers
                 return Results.NoContent();
             });
 
+            //get post's comments
+            app.MapGet("api/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
+            {
+                var postComments = db.Posts
+                .Include(p => p.Comments)
+               .FirstOrDefault(p => p.Id == postId);
+                return Results.Ok(postComments);
+            });
 
 
         }

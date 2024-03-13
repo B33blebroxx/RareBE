@@ -1,4 +1,5 @@
 ﻿using System;
+using RareBE.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace RareBE.Models;
