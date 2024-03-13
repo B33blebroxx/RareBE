@@ -23,7 +23,6 @@ public class RareBEDbContext : DbContext
         new Comment { Id = 1, AuthorId = 1, PostId = 1, Content = "Bright, fragrant, and sweet", CreatedOn = new DateTime(2024, 1, 10) },
         new Comment { Id = 2, AuthorId = 2, PostId = 3, Content = "Beautifully written", CreatedOn = new DateTime(2024, 5, 12) },
         new Comment { Id = 3, AuthorId = 3, PostId = 2, Content = "Very exciting", CreatedOn = new DateTime(2024, 6, 11) },
-        new Comment { Id = 4, AuthorId = 4, PostId = 4, Content = "So glad I read this!", CreatedOn = new DateTime(2024, 7, 6) },
      });
 
         modelBuilder.Entity<Post>().HasData(new Post[]
