@@ -46,7 +46,7 @@ app.UseHttpsRedirection();
 
 
 CommentsApi.Map(app);
-RareUsers.Map(app);
+RareUsersApi.Map(app);
 PostsApi.Map(app);
 RareUsersApi.Map(app);
 SearchApi.Map(app);
