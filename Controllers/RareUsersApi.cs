@@ -9,9 +9,9 @@ namespace RareBE.Controllers
         {
 
             //Checkuser
-            app.MapGet("/checkuser", (RareBEDbContext db, string uid) =>
+            app.MapGet("/checkuser/{uid}", (RareBEDbContext db, string uid) =>
             {
-                var user = db.RareUsers.SingleOrDefault(ru => ru.Uid == uid);
+                var user = db.RareUsers.Where(ru => ru.Uid == uid).ToList();
 
                 if (user == null)
                 {
