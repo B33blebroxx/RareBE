@@ -49,8 +49,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-SubscriptionsApi.Map(app);
-ReactionsApi.Map(app);
 PostsApi.Map(app);
 RareUsersApi.Map(app);
 SearchApi.Map(app);
