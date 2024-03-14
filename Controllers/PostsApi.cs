@@ -1,6 +1,7 @@
 ﻿using RareBE.Models;
 using RareBE.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace RareBE.Controllers
 {
@@ -53,26 +54,16 @@ namespace RareBE.Controllers
             });
 
             //create post
-            app.MapPost("/posts", (RareBEDbContext db, PostDTO postDto) =>
+            app.MapPost("/posts", (RareBEDbContext db, Post newPost) =>
             {
-
-                var newPost = new Post
-                {
-                    Title = postDto.Title,
-                    Content = postDto.Content,
-                    ImageUrl = postDto.ImageUrl,
-                    PublicationDate = DateTime.Now,
-                    Approved = true,
-                };
-
                 db.Posts.Add(newPost);
                 db.SaveChanges();
 
                 return Results.Created($"/posts/{newPost.Id}", newPost);
-            });
+                });
 
-            //update post
-            app.MapPut("/posts/{id}", (RareBEDbContext db, PostDTO postDto, int id) =>
+             //update post
+                app.MapPut("/posts/{id}", (RareBEDbContext db, PostDTO postDto, int id) =>
             {
                 var postToUpdate = db.Posts.Find(id);
                 if (postToUpdate == null)
