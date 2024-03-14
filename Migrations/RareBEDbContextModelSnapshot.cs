@@ -52,7 +52,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -99,23 +99,9 @@ namespace RareBE.Migrations
 
                     b.HasIndex("ReactionsId");
 
-                    b.ToTable("PostReaction");
+                    b.ToTable("PostReaction", (string)null);
                 });
 
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.Property<int>("PostsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PostsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("PostTag");
-                });
 
             modelBuilder.Entity("RareBE.Models.Comment", b =>
                 {
@@ -142,7 +128,7 @@ namespace RareBE.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasData(
                         new
@@ -209,7 +195,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RareUsers");
+                    b.ToTable("RareUsers", (string)null);
 
                     b.HasData(
                         new
@@ -265,7 +251,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reactions");
+                    b.ToTable("Reactions", (string)null);
 
                     b.HasData(
                         new
@@ -310,7 +296,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
 
                     b.HasData(
                         new
@@ -336,39 +322,7 @@ namespace RareBE.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RareBE.Models.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tags");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Label = "Ipad"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Label = "MacBook"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Label = "Mac Desktop"
-                        });
-                });
 
             modelBuilder.Entity("PostReaction", b =>
                 {
@@ -385,20 +339,6 @@ namespace RareBE.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.HasOne("Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RareBE.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
 
             modelBuilder.Entity("RareBE.Models.Comment", b =>
                 {
