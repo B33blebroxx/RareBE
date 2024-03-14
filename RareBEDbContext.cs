@@ -9,7 +9,6 @@ public class RareBEDbContext : DbContext
     public DbSet<Post> Posts { get; set; }
     public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<Reaction> Reactions { get; set; }
-    public DbSet<Tag> Tags { get; set; }
 
 
     public RareBEDbContext(DbContextOptions<RareBEDbContext> options) : base(options)
@@ -25,13 +24,6 @@ public class RareBEDbContext : DbContext
         new Comment { Id = 2, AuthorId = 2, PostId = 3, Content = "Beautifully written", CreatedOn = new DateTime(2024, 5, 12) },
         new Comment { Id = 3, AuthorId = 3, PostId = 2, Content = "Very exciting", CreatedOn = new DateTime(2024, 6, 11) },
      });
-
-        modelBuilder.Entity<Tag>().HasData(new Tag[]
-    {
-        new Tag { Id = 1, Label = "Ipad" },
-        new Tag { Id = 2, Label = "MacBook" },
-        new Tag { Id = 3, Label = "Mac Desktop" },
-    });
 
         modelBuilder.Entity<Post>().HasData(new Post[]
      {
