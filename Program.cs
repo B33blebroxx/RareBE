@@ -52,6 +52,8 @@ app.UseHttpsRedirection();
 PostsApi.Map(app);
 RareUsersApi.Map(app);
 SearchApi.Map(app);
+SubscriptionsApi.Map(app);
+ReactionsApi.Map(app);
 
 app.Run();
 

@@ -9,6 +9,7 @@ public class RareBEDbContext : DbContext
     public DbSet<Post> Posts { get; set; }
     public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<Reaction> Reactions { get; set; }
+    public DbSet<PostReaction> PostReactions { get; set; }
 
 
     public RareBEDbContext(DbContextOptions<RareBEDbContext> options) : base(options)

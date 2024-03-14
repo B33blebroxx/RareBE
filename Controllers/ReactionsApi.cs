@@ -11,20 +11,28 @@ namespace RareBE.Controllers
             // View a Posts Reactions
             app.MapGet("/post/{postId}/reactions", (RareBEDbContext db, int postId) =>
             {
-                var post = db.Posts.Include(p => p.Reactions).SingleOrDefault(p => p.Id == postId);
+                var postReactions = db.PostReactions.Where(x => x.PostId == postId).ToList();
+
+                ReactionDto dto = new()
+                {
+                    LikeReactions = postReactions.Where(x => x.ReactionId == 1).Count(),
+                    LoveReactions = postReactions.Where(x => x.ReactionId == 2).Count(),
+                    LaughReactions = postReactions.Where(x => x.ReactionId == 3).Count()
+                };
                 
-                if (post == null) 
+                if (postReactions == null) 
                 {
                     return Results.NotFound();
                 }
-                return Results.Ok(post);
+                return Results.Ok(dto);
             });
 
             // Add a Reaction to a Post
-            app.MapPost("/post/add-reaction", (RareBEDbContext db, ReactionDto dto) =>
+            app.MapPost("/post/add-reaction", (RareBEDbContext db, PostReaction newPostReaction) =>
             {
-                var currentReaction = db.Reactions.SingleOrDefault(r => r.Id == dto.ReactionId);
-                var post = db.Posts.Include(p => p.Reactions).SingleOrDefault(p => p.Id == dto.PostId);
+                db.PostReactions.Add(newPostReaction);
+                var currentReaction = db.Reactions.SingleOrDefault(r => r.Id == newPostReaction.ReactionId);
+                var post = db.Posts.Include(p => p.Reactions).SingleOrDefault(p => p.Id == newPostReaction.PostId);
 
                 if (currentReaction == null || post == null)
                 {

@@ -2,8 +2,8 @@
 {
     public class ReactionDto
     {
-        public int PostId { get; set; }
-        public int ReactionId { get; set; }
-        public int RareUserId { get; set; }
+        public int? LikeReactions { get; set; }
+        public int? LoveReactions { get; set; }
+        public int? LaughReactions { get; set; }
     }
 }
