@@ -13,6 +13,7 @@ namespace RareBE.Controllers
             {
                 var post = db.Posts.SingleOrDefault(p => p.Id == postId);
                 
+                
 
                 if (post == null) 
                 {
