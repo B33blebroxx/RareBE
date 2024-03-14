@@ -11,10 +11,8 @@ namespace RareBE.Controllers
             // View a Posts Reactions
             app.MapGet("/post/{postId}/reactions", (RareBEDbContext db, int postId) =>
             {
-                var post = db.Posts.SingleOrDefault(p => p.Id == postId);
+                var post = db.Posts.Include(p => p.Reactions).SingleOrDefault(p => p.Id == postId);
                 
-                
-
                 if (post == null) 
                 {
                     return Results.NotFound();

@@ -30,6 +30,11 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Set the JSON serializer options
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 app.UseCors();

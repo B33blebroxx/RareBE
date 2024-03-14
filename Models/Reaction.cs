@@ -1,4 +1,6 @@
-﻿namespace RareBE.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RareBE.Models
 {
     public class Reaction
     {
