@@ -50,14 +50,34 @@ namespace RareBE.Controllers
                 return Results.NoContent();
             });
 
-            //get post's comments
+
+            //get post's comments with RareUser's first and last name
             app.MapGet("/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
             {
                 var postComments = db.Posts
-                .Include(p => p.Comments)
-               .FirstOrDefault(p => p.Id == postId);
+                    .Include(p => p.Comments)
+                    .Where(p => p.Id == postId) // Filter by postId
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Title,
+                        p.PublicationDate,
+                        AuthorDisplayName = db.RareUsers
+                            .Where(u => u.Id == p.RareUserId)
+                            .Select(u => u.FirstName + " " + u.LastName)
+                            .FirstOrDefault(), // Construct AuthorDisplayName
+                        p.ImageUrl,
+                        p.Content,
+                        p.Approved,
+                        p.Reactions
+                    })
+                    .FirstOrDefault();
+
                 return Results.Ok(postComments);
             });
+
+
+
 
 
         }
