@@ -122,6 +122,7 @@ namespace RareBE.Controllers
                       post.Title,
                       post.PublicationDate,
                       AuthorId = post.RareUserId,
+                      AuthorDisplayName = db.RareUsers.Where(u => u.Id == post.RareUserId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
                       post.ImageUrl,
                       post.Content
                   })
