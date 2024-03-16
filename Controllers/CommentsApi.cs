@@ -22,6 +22,31 @@ namespace RareBE.Controllers
                 }
             });
 
+            //get single comment
+            app.MapGet("/comments/{id}", (RareBEDbContext db, int id) =>
+            {
+                var comment = db.Comments
+                .Where(c => c.Id == id)
+                .Select(c => new
+                {
+                    c.Id,
+                    c.PostId,
+                    c.Content,
+                    CreatedDate = c.CreatedOn.ToString("MM/dd/yyyy"),
+                    c.AuthorId,
+                    Author = db.RareUsers.Where(u => u.Id == c.AuthorId)
+                  .Select(u => u.FirstName + " " + u.LastName).FirstOrDefault()
+                })
+                 .FirstOrDefault();
+
+                if (comment == null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(comment);
+            });
+
             //delete a single comment
             app.MapDelete("/comments/{commentId}", (RareBEDbContext db, int commentId) =>
             {
