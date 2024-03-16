@@ -44,7 +44,6 @@ namespace RareBE.Controllers
                     return Results.NotFound();
                 }
                 commentToUpdate.Content = comment.Content;
-                commentToUpdate.CreatedOn = DateTime.Now;
 
                 db.SaveChanges();
                 return Results.NoContent();
@@ -61,7 +60,7 @@ namespace RareBE.Controllers
                     {
                         p.Id,
                         p.Title,
-                        p.PublicationDate,
+                        PublicationDate = p.PublicationDate.ToString("MM/dd/yyyy"),
                         AuthorDisplayName = db.RareUsers
                             .Where(u => u.Id == p.RareUserId)
                             .Select(u => u.FirstName + " " + u.LastName)
@@ -69,12 +68,27 @@ namespace RareBE.Controllers
                         p.ImageUrl,
                         p.Content,
                         p.Approved,
-                        p.Reactions
+                        p.Reactions,
+                        Comments = p.Comments
+                            .OrderByDescending(c => c.CreatedOn) // Order comments by CreatedOn descending
+                            .Select(c => new
+                            {
+                                c.Id,
+                                c.AuthorId,
+                                AuthorName = db.RareUsers
+                                    .Where(u => u.Id == c.AuthorId)
+                                    .Select(u => u.FirstName + " " + u.LastName)
+                                    .FirstOrDefault(), // Get author's first and last name
+                                c.PostId,
+                                Content = c.Content,
+                                CreatedOn = c.CreatedOn.ToString("MM/dd/yyyy"), // Convert CreatedOn to string
+                            })
                     })
                     .FirstOrDefault();
 
                 return Results.Ok(postComments);
             });
+
 
 
 
