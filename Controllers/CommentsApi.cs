@@ -66,19 +66,16 @@ namespace RareBE.Controllers
                             .FirstOrDefault(), // Construct AuthorDisplayName
                         p.ImageUrl,
                         p.Content,
-                        p.Approved,
-                        p.Reactions,
                         Comments = p.Comments
                             .OrderByDescending(c => c.CreatedOn) // Order comments by CreatedOn descending
                             .Select(c => new
                             {
                                 c.Id,
-                                c.AuthorId,
                                 AuthorName = db.RareUsers
                                     .Where(u => u.Id == c.AuthorId)
                                     .Select(u => u.FirstName + " " + u.LastName)
                                     .FirstOrDefault(), // Get author's first and last name
-                                Content = c.Content,
+                                c.Content,
                                 CreatedOn = c.CreatedOn.ToString("MM/dd/yyyy"), // Convert CreatedOn to string
                             })
                     })
