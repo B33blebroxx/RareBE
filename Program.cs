@@ -30,6 +30,11 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Set the JSON serializer options
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 app.UseCors();
@@ -44,11 +49,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-CommentsApi.Map(app);
 PostsApi.Map(app);
 RareUsersApi.Map(app);
 SearchApi.Map(app);
+SubscriptionsApi.Map(app);
+ReactionsApi.Map(app);
 
 app.Run();
 

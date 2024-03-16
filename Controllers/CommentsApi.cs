@@ -49,7 +49,8 @@ namespace RareBE.Controllers
                 return Results.NoContent();
             });
 
-            //get post's comments
+
+            //get post's comments with RareUser's first and last name
             app.MapGet("/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
             {
                 var postComments = db.Posts
