@@ -74,13 +74,11 @@ namespace RareBE.Controllers
                             .Select(c => new
                             {
                                 c.Id,
-                                c.AuthorId,
                                 AuthorName = db.RareUsers
                                     .Where(u => u.Id == c.AuthorId)
                                     .Select(u => u.FirstName + " " + u.LastName)
                                     .FirstOrDefault(), // Get author's first and last name
-                                c.PostId,
-                                Content = c.Content,
+                                c.Content,
                                 CreatedOn = c.CreatedOn.ToString("MM/dd/yyyy"), // Convert CreatedOn to string
                             })
                     })
