@@ -10,5 +10,5 @@ public class Post
     public string ImageUrl { get; set; }
     public string Content { get; set; }
     public bool Approved { get; set; }
-    public ICollection<Reaction>? Reactions { get; set; }
+    public List<PostReaction>? PostReactions { get; set; }
 }
