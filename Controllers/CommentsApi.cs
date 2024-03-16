@@ -44,20 +44,47 @@ namespace RareBE.Controllers
                     return Results.NotFound();
                 }
                 commentToUpdate.Content = comment.Content;
-                commentToUpdate.CreatedOn = DateTime.Now;
 
                 db.SaveChanges();
                 return Results.NoContent();
             });
 
-            //get post's comments
+
+            //get post's comments with RareUser's first and last name
             app.MapGet("/posts/{postId}/comments", (RareBEDbContext db, int postId) =>
             {
                 var postComments = db.Posts
-                .Include(p => p.Comments)
-               .FirstOrDefault(p => p.Id == postId);
+                    .Include(p => p.Comments)
+                    .Where(p => p.Id == postId) // Filter by postId
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Title,
+                        PublicationDate = p.PublicationDate.ToString("MM/dd/yyyy"),
+                        AuthorDisplayName = db.RareUsers
+                            .Where(u => u.Id == p.RareUserId)
+                            .Select(u => u.FirstName + " " + u.LastName)
+                            .FirstOrDefault(), // Construct AuthorDisplayName
+                        p.ImageUrl,
+                        p.Content,
+                        Comments = p.Comments
+                            .OrderByDescending(c => c.CreatedOn) // Order comments by CreatedOn descending
+                            .Select(c => new
+                            {
+                                c.Id,
+                                AuthorName = db.RareUsers
+                                    .Where(u => u.Id == c.AuthorId)
+                                    .Select(u => u.FirstName + " " + u.LastName)
+                                    .FirstOrDefault(), // Get author's first and last name
+                                c.Content,
+                                CreatedOn = c.CreatedOn.ToString("MM/dd/yyyy"), // Convert CreatedOn to string
+                            })
+                    })
+                    .FirstOrDefault();
+
                 return Results.Ok(postComments);
             });
+
 
 
         }

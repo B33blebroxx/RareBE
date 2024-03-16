@@ -54,6 +54,7 @@ RareUsersApi.Map(app);
 SearchApi.Map(app);
 SubscriptionsApi.Map(app);
 ReactionsApi.Map(app);
+CommentsApi.Map(app);
 
 app.Run();
 
