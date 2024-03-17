@@ -8,8 +8,17 @@ namespace RareBE.Controllers
         public static void Map(WebApplication app)
         {
             //create a comment
-            app.MapPost("/comments/new", (RareBEDbContext db, Comment newComment) =>
+            app.MapPost("/comments/new", (RareBEDbContext db, Comment comment) =>
             {
+                var newComment = new Comment // Instantiate the Comment object
+                {
+                    Id = comment.Id,
+                    AuthorId = comment.AuthorId,
+                    PostId = comment.PostId,
+                    Content = comment.Content, // Assign the Content property
+                    CreatedOn = DateTime.Now // Assign the current datetime
+                }; // Close the instantiation
+
                 try
                 {
                     db.Comments.Add(newComment);
@@ -20,7 +29,8 @@ namespace RareBE.Controllers
                 {
                     return Results.BadRequest("Invalid data submitted");
                 }
-            });
+            }); // Close the lambda function
+
 
             //get single comment
             app.MapGet("/comments/{id}", (RareBEDbContext db, int id) =>
@@ -57,7 +67,9 @@ namespace RareBE.Controllers
                 }
 
                 db.Comments.Remove(commentToDelete);
-                return Results.Ok("Comment deleted successfully.");
+                db.SaveChanges();
+
+                return Results.Ok(commentToDelete);
             });
 
             //update Comment
@@ -71,7 +83,7 @@ namespace RareBE.Controllers
                 commentToUpdate.Content = comment.Content;
 
                 db.SaveChanges();
-                return Results.NoContent();
+                return Results.Ok(commentToUpdate);
             });
 
 
