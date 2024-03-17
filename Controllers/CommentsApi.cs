@@ -8,7 +8,7 @@ namespace RareBE.Controllers
         public static void Map(WebApplication app)
         {
             //create a comment
-            app.MapPost("/comments", (RareBEDbContext db, Comment newComment) =>
+            app.MapPost("/comments/new", (RareBEDbContext db, Comment newComment) =>
             {
                 try
                 {
