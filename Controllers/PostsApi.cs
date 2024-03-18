@@ -16,6 +16,7 @@ namespace RareBE.Controllers
                     .Where(p => p.Approved && p.PublicationDate <= DateTime.Now)
                     .OrderByDescending(p => p.PublicationDate)
                     .Select(p => new {
+                        p.Id,
                         p.Title,
                         p.PublicationDate,
                         AuthorDisplayName = db.RareUsers
