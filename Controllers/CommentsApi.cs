@@ -109,6 +109,7 @@ namespace RareBE.Controllers
                             .Select(c => new
                             {
                                 c.Id,
+                                c.AuthorId,
                                 AuthorName = db.RareUsers
                                     .Where(u => u.Id == c.AuthorId)
                                     .Select(u => u.FirstName + " " + u.LastName)
