@@ -51,7 +51,7 @@ public class RareBEDbContext : DbContext
             Id = 3,
             RareUserId = 2,
             Title = "The Evolution of Apple Watch: From Luxury to Necessity",
-            PublicationDate = new DateTime(2024, 5, 5),
+            PublicationDate = new DateTime(2024, 1, 10),
             ImageUrl = "https://media.istockphoto.com/id/1314052259/photo/woman-using-smart-watch-and-smart-phone-apple-watch.jpg?s=612x612&w=0&k=20&c=5JcW_Xmw0-RkOD-D7MNHrzRN2g7_m8WM8ZbV2rGoNAc=",
             Content = "Trace the journey of the Apple Watch and how it's become an indispensable tool for health, communication, and productivity. Discover the latest features that make it more than just a timepiece.",
             Approved = true
@@ -78,7 +78,7 @@ public class RareBEDbContext : DbContext
                 Email = "john.doe@example.com",
                 CreatedOn = new DateTime (2024,03,01),
                 Active = true,
-                Uid = null
+                Uid = "NlqJSegDT4Y2lpb5JEuyrTqQCWu1"
             },
 
             new RareUser
@@ -91,7 +91,7 @@ public class RareBEDbContext : DbContext
                 Email = "alice.smith@example.com",
                 CreatedOn = new DateTime (2024,02,12),
                 Active = true,
-                Uid = null
+                Uid = "e3PXxd4PTjNS98Uc39OcA6UXhaj2"
             },
 
             new RareUser
@@ -104,8 +104,21 @@ public class RareBEDbContext : DbContext
                 Email = "emily.jones@example.com",
                 CreatedOn = new DateTime (2023,12,12),
                 Active = false,
-                Uid = null
-        }
+                Uid = "6t9aVoqg9dY7Nu5iFGhSJNlOZ7j1"
+            },
+
+            new RareUser
+            {
+                Id = 4,
+                FirstName = "Jessie",
+                LastName = "Gorfson",
+                Bio = "Web Developer",
+                ProfileImageUrl = "https://example.com/profile3.jpg",
+                Email = "theGorf@example.com",
+                CreatedOn = new DateTime (2024,01,01),
+                Active = false,
+                Uid = "j1QamJg48ihtDd6LcIaXE83KOcF2"
+            }
     });
 
         modelBuilder.Entity<Reaction>().HasData(new Reaction[]
