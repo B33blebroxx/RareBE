@@ -83,6 +83,21 @@ namespace RareBE.Controllers
 
                 return Results.Ok(userDetails);
             });
+
+            //Get all users
+            app.MapGet("/users", (RareBEDbContext db) =>
+            {
+                var users = db.RareUsers
+                            .Select(ru => new
+                            {
+                                ru.Id,
+                                ru.FirstName,
+                                ru.LastName,
+                                ru.ProfileImageUrl
+                            });
+
+                return Results.Ok(users);
+            });
         }
     }
 }
