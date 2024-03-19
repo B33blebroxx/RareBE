@@ -70,6 +70,7 @@ namespace RareBE.Controllers
 
                 var userDetails = new
                 {
+                    user.Id,
                     FullName = $"{user.FirstName} {user.LastName}",
                     user.ProfileImageUrl,
                     user.Bio,
