@@ -19,12 +19,13 @@ namespace RareBE.Controllers
                     {
                         Label = group.Key,
                         Count = group.Count(),
-                        ImageUrl = group.First().Reaction.Image // Assuming all reactions of the same type have the same image
+                        ImageUrl = group.FirstOrDefault().Reaction.Image  // Select the first reaction's image
                     })
                     .ToList();
 
                 return Results.Ok(reactions);
             });
+
             //update Reaction
             app.MapPut("/reactions/{reactionId}", (RareBEDbContext db, int reactionId, Reaction reaction) =>
             {
