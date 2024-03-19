@@ -92,6 +92,8 @@ namespace RareBE.Controllers
             {
                 var postComments = db.Posts
                     .Include(p => p.Comments)
+                    .Include(p => p.PostReactions)
+                    .ThenInclude(pr => pr.Reaction)
                     .Where(p => p.Id == postId) // Filter by postId
                     .Select(p => new
                     {
@@ -116,7 +118,21 @@ namespace RareBE.Controllers
                                     .FirstOrDefault(), // Get author's first and last name
                                 c.Content,
                                 CreatedOn = c.CreatedOn.ToString("MM/dd/yyyy"), // Convert CreatedOn to string
-                            })
+                            }),
+                        PostReactions = p.PostReactions.Select(pr => new
+                        {
+                            pr.Id,
+                            pr.Reaction.Label,
+                            pr.Reaction.Image,
+                            pr.PostId
+                        }).ToList(),
+                        ReactionCounts = p.PostReactions
+                .GroupBy(pr => pr.Reaction.Label)
+                .Select(group => new
+                {
+                    ReactionLabel = group.Key,
+                    Count = group.Count()
+                }).ToList()
                     })
                     .FirstOrDefault();
 

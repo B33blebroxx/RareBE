@@ -9,63 +9,86 @@ namespace RareBE.Controllers
         public static void Map(WebApplication app)
         {
             // View a Posts Reactions
-            app.MapGet("/post/{postId}/reactions-details", (RareBEDbContext db, int postId) =>
+            app.MapGet("/posts/{postId}/reaction-details", (RareBEDbContext db, int postId) =>
             {
                 var reactions = db.PostReactions
-                    .Include(p => p.RareUser)
-                    .Where(x => x.PostId == postId)
-                    .Select(p => new
-                    {   
-                        p.RareUser.FirstName,
-                        p.RareUser.LastName,
-                        p.Reaction.Id,
-                        p.Reaction.Label,
-                        p.Reaction.Image
-                    }).ToList();
-                
-                if (reactions == null) 
+                    .Include(pr => pr.Reaction)
+                    .Where(pr => pr.PostId == postId)
+                    .GroupBy(pr => pr.Reaction.Label)
+                    .Select(group => new
+                    {
+                        Label = group.Key,
+                        Count = group.Count(),
+                        ImageUrl = group.First().Reaction.Image // Assuming all reactions of the same type have the same image
+                    })
+                    .ToList();
+
+                return Results.Ok(reactions);
+            });
+            //update Reaction
+            app.MapPut("/reactions/{reactionId}", (RareBEDbContext db, int reactionId, Reaction reaction) =>
+            {
+                Reaction reactionToUpdate = db.Reactions.SingleOrDefault(r => r.Id == reactionId);
+                if (reactionToUpdate == null)
                 {
                     return Results.NotFound();
                 }
-                return Results.Ok(reactions);
+                reactionToUpdate.Id = reaction.Id;
+                reactionToUpdate.Label = reaction.Label;
+                reactionToUpdate.Image = reaction.Image;
+
+
+                db.SaveChanges();
+                return Results.Ok(reactionToUpdate);
             });
 
             // View Total of Each Reaction on a Post
             app.MapGet("/post/{postId}/reactions", (RareBEDbContext db, int postId) =>
             {
-                var reactions = db.PostReactions.Where(p => p.PostId == postId).ToList();
-                PostReactionsTotalsDto totals = new()
+                var reactionCounts = db.PostReactions
+                    .Where(pr => pr.PostId == postId)
+                    .GroupBy(pr => pr.ReactionId)
+                    .Select(group => new
+                    {
+                        ReactionId = group.Key,
+                        Count = group.Count()
+                    })
+                    .ToList();
+
+                var totals = new PostReactionsTotalsDto
                 {
-                    Likes = reactions.Where(x => x.ReactionId == 1).Count(),
-                    Loves = reactions.Where(x => x.ReactionId == 2).Count(),
-                    Laughs = reactions.Where(x => x.ReactionId == 3).Count(),
-                    TotalReactions = reactions.Count(),
+                    Likes = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 1)?.Count ?? 0,
+                    Loves = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 2)?.Count ?? 0,
+                    Laughs = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 3)?.Count ?? 0,
+                    TotalReactions = reactionCounts.Sum(rc => rc.Count)
                 };
 
-                if (reactions == null)
-                {
-                    return Results.NotFound();
-                }
                 return Results.Ok(totals);
             });
+
 
             // Add a Reaction to a Post
             app.MapPost("/post/add-reaction", (RareBEDbContext db, PostReactionDto dto) =>
             {
-                PostReaction postReaction = new()
+                // Check if the post and user exist
+                if (!db.Posts.Any(p => p.Id == dto.PostId) || !db.RareUsers.Any(u => u.Id == dto.RareUserId))
+                {
+                    return Results.NotFound();
+                }
+
+                // Create a new PostReaction
+                PostReaction postReaction = new PostReaction
                 {
                     ReactionId = dto.ReactionId,
-                    Reaction = db.Reactions.FirstOrDefault(x => x.Id == dto.ReactionId),
                     PostId = dto.PostId,
-                    Post = db.Posts.FirstOrDefault(x => x.Id == dto.PostId),
-                    RareUserId = dto.RareUserId,
-                    RareUser = db.RareUsers.FirstOrDefault(x => x.Id == dto.RareUserId)
+                    RareUserId = dto.RareUserId
                 };
 
                 db.PostReactions.Add(postReaction);
                 db.SaveChanges();
                 return Results.Ok();
             });
+
         }
     }
 }
