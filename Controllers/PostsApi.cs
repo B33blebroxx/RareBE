@@ -13,12 +13,12 @@ namespace RareBE.Controllers
             app.MapGet("/posts", (RareBEDbContext db) =>
             {
                 var posts = db.Posts
-                    .Where(p => p.Approved && p.PublicationDate <= DateTime.Now)
+                    .Where(p => p.Approved && p.PublicationDate <= DateTime.UtcNow)
                     .OrderByDescending(p => p.PublicationDate)
                     .Select(p => new {
                         p.Id,
                         p.Title,
-                        p.PublicationDate,
+                        PublicationDate = p.PublicationDate.ToUniversalTime().ToString("MM/dd/yyyy hh:mm tt"),
                         AuthorDisplayName = db.RareUsers
                         .Where(u => u.Id == p.RareUserId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
                         p.ImageUrl,
@@ -40,7 +40,7 @@ namespace RareBE.Controllers
                     p.Title,
                     p.Content,
                     p.ImageUrl,
-                    PublicationDate = p.PublicationDate.ToString("MM/dd/yyyy"),
+                    PublicationDate = p.PublicationDate.ToUniversalTime().ToString("MM/dd/yyyy hh:mm tt"),
                     Author = db.RareUsers.Where(u => u.Id == p.RareUserId)
                   .Select(u => u.FirstName + " " + u.LastName).FirstOrDefault()
                 })
@@ -101,6 +101,17 @@ namespace RareBE.Controllers
                 var posts = db.Posts
                 .Where(p => p.RareUserId == userId && p.Approved && p.PublicationDate <= DateTime.UtcNow)
                 .OrderByDescending(p => p.PublicationDate)
+                .Select(p => new {
+                    p.Id,
+                    p.Title,
+                    PublicationDate = p.PublicationDate.ToUniversalTime().ToString("MM/dd/yyyy hh:mm tt"),
+                    p.ImageUrl,
+                    p.Content,
+                    AuthorDisplayName = db.RareUsers
+            .Where(u => u.Id == p.RareUserId)
+            .Select(u => u.FirstName + " " + u.LastName)
+            .FirstOrDefault()
+                })
                 .ToList();
 
                 return Results.Ok(posts);
