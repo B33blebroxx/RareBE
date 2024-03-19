@@ -46,6 +46,7 @@ namespace RareBE.Controllers
                     return Results.NotFound("No user found with that ID");
                 }
 
+                userBeingUpdated.Id = user.Id;
                 userBeingUpdated.FirstName = user.FirstName;
                 userBeingUpdated.LastName = user.LastName;
                 userBeingUpdated.Bio = user.Bio;
@@ -70,7 +71,9 @@ namespace RareBE.Controllers
 
                 var userDetails = new
                 {
-                    FullName = $"{user.FirstName} {user.LastName}",
+                    user.Id,
+                    user.FirstName,
+                    user.LastName,
                     user.ProfileImageUrl,
                     user.Bio,
                     user.Email,
