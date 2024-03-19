@@ -44,28 +44,34 @@ namespace RareBE.Controllers
             });
 
             // View Total of Each Reaction on a Post
+          
+
             app.MapGet("/post/{postId}/reactions", (RareBEDbContext db, int postId) =>
             {
-                var reactionCounts = db.PostReactions
-                    .Where(pr => pr.PostId == postId)
-                    .GroupBy(pr => pr.ReactionId)
+                var postReactionsQuery = db.PostReactions.Where(pr => pr.PostId == postId);
+
+                var reactionCounts = postReactionsQuery
+                    .GroupBy(pr => new { pr.ReactionId, pr.Reaction.Image })
                     .Select(group => new
                     {
-                        ReactionId = group.Key,
+                        ReactionId = group.Key.ReactionId,
+                        Label = group.First().Reaction.Label,
+                        Image = group.Key.Image,
                         Count = group.Count()
                     })
                     .ToList();
 
-                var totals = new PostReactionsTotalsDto
+                var totalReactions = postReactionsQuery.Count();
+
+                var result = new
                 {
-                    Likes = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 1)?.Count ?? 0,
-                    Loves = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 2)?.Count ?? 0,
-                    Laughs = reactionCounts.FirstOrDefault(rc => rc.ReactionId == 3)?.Count ?? 0,
-                    TotalReactions = reactionCounts.Sum(rc => rc.Count)
+                    TotalReactions = totalReactions,
+                    ReactionCounts = reactionCounts
                 };
 
-                return Results.Ok(totals);
+                return Results.Ok(result);
             });
+
 
 
             // Add a Reaction to a Post
