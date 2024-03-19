@@ -107,7 +107,7 @@ namespace RareBE.Controllers
             });
 
             //get subscribed posts
-            app.MapGet("/posts/subscribed", (RareBEDbContext db, int currentUserId) =>
+            app.MapGet("/posts/{currentUserId}/subscribed", (RareBEDbContext db, int currentUserId) =>
             {
                 var subscribedAuthorIds = db.Subscriptions
                  .Where(sub => sub.FollowerId == currentUserId && (sub.EndedOn == null || sub.EndedOn > DateTime.Now))
