@@ -18,7 +18,9 @@ namespace RareBE.Controllers
                     {   
                         p.RareUser.FirstName,
                         p.RareUser.LastName,
-                        p.Reaction.Label
+                        p.Reaction.Id,
+                        p.Reaction.Label,
+                        p.Reaction.Image
                     }).ToList();
                 
                 if (reactions == null) 
