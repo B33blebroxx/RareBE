@@ -9,7 +9,7 @@ namespace RareBE.Controllers
         public static void Map(WebApplication app)
         {
             //Search posts by Title
-            app.MapGet("/posts/search", (RareBEDbContext db, string query) =>
+            app.MapGet("/posts/search/{query}", (RareBEDbContext db, string query) =>
             {
                 if (string.IsNullOrWhiteSpace(query))
                 {
