@@ -52,7 +52,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -112,7 +112,7 @@ namespace RareBE.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasData(
                         new
@@ -166,7 +166,7 @@ namespace RareBE.Migrations
 
                     b.HasIndex("ReactionId");
 
-                    b.ToTable("PostReactions");
+                    b.ToTable("PostReactions", (string)null);
                 });
 
             modelBuilder.Entity("RareBE.Models.RareUser", b =>
@@ -207,7 +207,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RareUsers");
+                    b.ToTable("RareUsers", (string)null);
 
                     b.HasData(
                         new
@@ -278,7 +278,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reactions");
+                    b.ToTable("Reactions", (string)null);
 
                     b.HasData(
                         new
@@ -323,7 +323,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
 
                     b.HasData(
                         new
