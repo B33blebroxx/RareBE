@@ -29,16 +29,15 @@ public class RareBEDbContext : DbContext
 
         modelBuilder.Entity<PostReaction>().HasData(new PostReaction[]
     {
-        new PostReaction { Id = 1, RareUserId = 4, PostId = 1, ReactionId = 1 },
-        new PostReaction { Id = 2, RareUserId = 4, PostId = 1, ReactionId = 2 },
-        new PostReaction { Id = 3, RareUserId = 3, PostId = 1, ReactionId = 3 },
-        new PostReaction { Id = 4, RareUserId = 1, PostId = 2, ReactionId = 1 },
-        new PostReaction { Id = 5, RareUserId = 1, PostId = 2, ReactionId = 2 },
-        new PostReaction { Id = 6, RareUserId = 4, PostId = 2, ReactionId = 3 },
-        new PostReaction { Id = 7, RareUserId = 2, PostId = 3, ReactionId = 1 },
-        new PostReaction { Id = 8, RareUserId = 3, PostId = 3, ReactionId = 2 },
-        new PostReaction { Id = 9, RareUserId = 1, PostId = 3, ReactionId = 3 },
-        new PostReaction { Id = 10, RareUserId = 2, PostId = 1, ReactionId = 3 },
+        new PostReaction { Id = 1, RareUserId = 1, PostId = 2, ReactionId = 1 },
+        new PostReaction { Id = 2, RareUserId = 1, PostId = 2, ReactionId = 2 },
+        new PostReaction { Id = 3, RareUserId = 1, PostId = 2, ReactionId = 3 },
+        new PostReaction { Id = 4, RareUserId = 2, PostId = 3, ReactionId = 1 },
+        new PostReaction { Id = 5, RareUserId = 2, PostId = 3, ReactionId = 2 },
+        new PostReaction { Id = 6, RareUserId = 2, PostId = 3, ReactionId = 3 },
+        new PostReaction { Id = 7, RareUserId = 3, PostId = 1, ReactionId = 1 },
+        new PostReaction { Id = 8, RareUserId = 3, PostId = 1, ReactionId = 2 },
+        new PostReaction { Id = 9, RareUserId = 3, PostId = 1, ReactionId = 3 },
     });
 
         modelBuilder.Entity<Post>().HasData(new Post[]
