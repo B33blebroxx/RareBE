@@ -78,7 +78,8 @@ namespace RareBE.Controllers
                     user.Bio,
                     user.Email,
                     CreationDate = formattedCreationDate,
-                    Active = user.Active
+                    Active = user.Active,
+                    user.Uid
                 };
 
                 return Results.Ok(userDetails);
