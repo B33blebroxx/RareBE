@@ -44,6 +44,19 @@ namespace RareBE.Controllers
                 var subs = db.Subscriptions.Where(s => s.AuthorId == id).Count();
                 return Results.Ok(subs);
             });
+
+            // check subscriptions 
+            app.MapGet("/subscriptions/check/{followerId}/{authorId}", (RareBEDbContext db, int followerId, int authorId) =>
+            {
+                var checkSubs = db.Subscriptions.Where(s => s.FollowerId == followerId && s.AuthorId == authorId).FirstOrDefault();
+                if (checkSubs == null)
+                {
+                    return false;
+                } else
+                {
+                    return true;
+                }              
+            });
         }
     }
 }
