@@ -1,4 +1,5 @@
-﻿using RareBE.Models;
+﻿using RareBE.DTOs;
+using RareBE.Models;
 
 namespace RareBE.Controllers
 {
@@ -26,9 +27,9 @@ namespace RareBE.Controllers
             });
 
             // Unsubscribe from a User
-            app.MapDelete("/subscriptions/{subId}", (RareBEDbContext db, int subId) =>
+            app.MapDelete("/users/{authorId}/subscribers/{subId}", (RareBEDbContext db, int authorId, int subId) =>
             {
-                var subToDelete = db.Subscriptions.Where(s => s.Id == subId).FirstOrDefault();
+                var subToDelete = db.Subscriptions.Where(s => s.FollowerId == subId && s.AuthorId == authorId).FirstOrDefault();
                 if (subToDelete == null)
                 {
                     return Results.NotFound();
@@ -45,17 +46,15 @@ namespace RareBE.Controllers
                 return Results.Ok(subs);
             });
 
-            // check subscriptions 
-            app.MapGet("/subscriptions/check/{followerId}/{authorId}", (RareBEDbContext db, int followerId, int authorId) =>
+            // Get user's subscribers
+            app.MapGet("/subscriptions/{authorId}", (RareBEDbContext db, int authorId) =>
             {
-                var checkSubs = db.Subscriptions.Where(s => s.FollowerId == followerId && s.AuthorId == authorId).FirstOrDefault();
+                var checkSubs = db.Subscriptions.Where(s => s.AuthorId == authorId).ToList();
                 if (checkSubs == null)
                 {
-                    return false;
-                } else
-                {
-                    return true;
-                }              
+                    return Results.NotFound();
+                }
+                return Results.Ok(checkSubs);
             });
         }
     }
