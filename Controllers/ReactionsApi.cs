@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using RareBE.DTOs;
 using RareBE.Models;
 
@@ -8,6 +9,19 @@ namespace RareBE.Controllers
     {
         public static void Map(WebApplication app)
         {
+            //Get all Reactions to be able to select one to add to the post
+            app.MapGet("/reactions", (RareBEDbContext db) =>
+                {
+                    var allReactions = db.Reactions
+                        .Select(r => new
+                        {
+                            r.Id,
+                            r.Image
+                        })
+                        .ToList();
+                    return Results.Ok(allReactions);
+                });
+
             // View a Posts Reactions
             app.MapGet("/posts/{postId}/reaction-details", (RareBEDbContext db, int postId) =>
             {
@@ -17,6 +31,7 @@ namespace RareBE.Controllers
                     .GroupBy(pr => pr.Reaction.Label)
                     .Select(group => new
                     {
+                        ReactId = group.FirstOrDefault().Reaction.Id,
                         Label = group.Key,
                         Count = group.Count(),
                         ImageUrl = group.FirstOrDefault().Reaction.Image  // Select the first reaction's image
@@ -94,6 +109,25 @@ namespace RareBE.Controllers
                 db.PostReactions.Add(postReaction);
                 db.SaveChanges();
                 return Results.Ok();
+            });
+            //get single reaction
+            app.MapGet("/reactions/{id}", (RareBEDbContext db, int id) =>
+            {
+                var singleReaction = db.Reactions
+                .Where(r => r.Id == id)
+                .Select(r => new
+                {
+                    r.Id,
+                    r.Image,
+                })
+                 .FirstOrDefault();
+
+                if (singleReaction == null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(singleReaction);
             });
 
         }
