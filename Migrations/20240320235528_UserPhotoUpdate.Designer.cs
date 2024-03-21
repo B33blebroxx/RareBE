@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RareBE.Migrations
 {
     [DbContext(typeof(RareBEDbContext))]
-    partial class RareBEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320235528_UserPhotoUpdate")]
+    partial class UserPhotoUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
 
                     b.HasData(
                         new
@@ -112,7 +114,7 @@ namespace RareBE.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
 
                     b.HasData(
                         new
@@ -166,7 +168,7 @@ namespace RareBE.Migrations
 
                     b.HasIndex("ReactionId");
 
-                    b.ToTable("PostReactions", (string)null);
+                    b.ToTable("PostReactions");
                 });
 
             modelBuilder.Entity("RareBE.Models.RareUser", b =>
@@ -207,7 +209,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RareUsers", (string)null);
+                    b.ToTable("RareUsers");
 
                     b.HasData(
                         new
@@ -278,7 +280,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reactions", (string)null);
+                    b.ToTable("Reactions");
 
                     b.HasData(
                         new
@@ -323,7 +325,7 @@ namespace RareBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
 
                     b.HasData(
                         new
