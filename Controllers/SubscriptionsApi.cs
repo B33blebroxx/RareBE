@@ -49,7 +49,7 @@ namespace RareBE.Controllers
             // Get user's subscribers
             app.MapGet("/subscriptions/{authorId}", (RareBEDbContext db, int authorId) =>
             {
-                var checkSubs = db.Subscriptions.Where(s => s.AuthorId == authorId).ToList();
+                var checkSubs = db.Subscriptions.Where(s => s.AuthorId == authorId).Select(s => s.FollowerId).ToArray();
                 if (checkSubs == null)
                 {
                     return Results.NotFound();
