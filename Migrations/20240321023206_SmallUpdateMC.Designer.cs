@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RareBE.Migrations
 {
     [DbContext(typeof(RareBEDbContext))]
-    partial class RareBEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321023206_SmallUpdateMC")]
+    partial class SmallUpdateMC
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,71 +169,6 @@ namespace RareBE.Migrations
                     b.HasIndex("ReactionId");
 
                     b.ToTable("PostReactions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PostId = 2,
-                            RareUserId = 1,
-                            ReactionId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            PostId = 2,
-                            RareUserId = 1,
-                            ReactionId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            PostId = 2,
-                            RareUserId = 1,
-                            ReactionId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            PostId = 3,
-                            RareUserId = 2,
-                            ReactionId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            PostId = 3,
-                            RareUserId = 2,
-                            ReactionId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            PostId = 3,
-                            RareUserId = 2,
-                            ReactionId = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            PostId = 1,
-                            RareUserId = 3,
-                            ReactionId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            PostId = 1,
-                            RareUserId = 3,
-                            ReactionId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            PostId = 1,
-                            RareUserId = 3,
-                            ReactionId = 3
-                        });
                 });
 
             modelBuilder.Entity("RareBE.Models.RareUser", b =>
@@ -349,19 +286,19 @@ namespace RareBE.Migrations
                         new
                         {
                             Id = 1,
-                            Image = "https://www.clker.com/cliparts/k/K/q/9/P/m/blue-thumbs-up-md.png",
+                            Image = "https://p1.hiclipart.com/preview/516/463/730/facebook-reactions-1-png-clipart-thumbnail.jpg",
                             Label = "Like"
                         },
                         new
                         {
                             Id = 2,
-                            Image = "https://www.clker.com/cliparts/4/1/4/8/1194984842227965453heart_highlight_jon_phil_01.svg.med.png",
+                            Image = "https://p7.hiclipart.com/preview/569/541/154/social-media-facebook-love-emoji-facebook-reaction.jpg",
                             Label = "Love"
                         },
                         new
                         {
                             Id = 3,
-                            Image = "https://www.clker.com/cliparts/9/3/0/4/1194986482324150491smiley_nicolas_01.svg.med.png",
+                            Image = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d5f41aae-b015-401d-90db-b4fc1ca02719/dbposff-ea25cf15-0729-409e-b815-2d22adfd9551.gif/v1/fill/w_500,h_500/facebook_haha_reaction_by_metallicsedan_dbposff-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTAwIiwicGF0aCI6IlwvZlwvZDVmNDFhYWUtYjAxNS00MDFkLTkwZGItYjRmYzFjYTAyNzE5XC9kYnBvc2ZmLWVhMjVjZjE1LTA3MjktNDA5ZS1iODE1LTJkMjJhZGZkOTU1MS5naWYiLCJ3aWR0aCI6Ijw9NTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.AGN85B-bQ8Lbuuh09A9qzSPyreHvdgV03nh-QNQcRfk",
                             Label = "Laugh"
                         });
                 });
