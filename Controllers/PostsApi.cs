@@ -37,6 +37,7 @@ namespace RareBE.Controllers
                 .Select(p => new
                 {
                     p.Id,
+                    p.RareUserId,
                     p.Title,
                     p.Content,
                     p.ImageUrl,
