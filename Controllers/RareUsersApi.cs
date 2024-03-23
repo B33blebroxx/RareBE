@@ -67,7 +67,7 @@ namespace RareBE.Controllers
                     return Results.NotFound("No user found with that ID");
                 }
 
-                string formattedCreationDate = user.CreatedOn.ToUniversalTime().ToString("MM/dd/yyyy hh:mm tt");
+                string formattedCreationDate = user.CreatedOn.ToString("MM/dd/yyyy");
 
                 var userDetails = new
                 {
@@ -77,7 +77,7 @@ namespace RareBE.Controllers
                     user.ProfileImageUrl,
                     user.Bio,
                     user.Email,
-                    CreatedOn = formattedCreationDate,
+                    user.CreatedOn,
                     user.Uid
                 };
 
