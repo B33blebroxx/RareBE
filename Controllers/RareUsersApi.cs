@@ -77,7 +77,7 @@ namespace RareBE.Controllers
                     user.ProfileImageUrl,
                     user.Bio,
                     user.Email,
-                    user.CreatedOn,
+                    CreatedOn = formattedCreationDate,
                     user.Uid
                 };
 
